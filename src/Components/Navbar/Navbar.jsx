@@ -1,4 +1,3 @@
-import React from "react";
 import './Navbar.css'
 import menu_icon from '../../assets/menu.png'
 import logo from '../../assets/logo.png'
@@ -7,13 +6,14 @@ import upload_icom from '../../assets/upload.png'
 import more_icon from '../../assets/more.png'
 import notification_icon from '../../assets/notification.png'
 import profile_icon from '../../assets/jack.png'
-import Sidebar from "../Sidebar/Sidebar";
+import { Link } from 'react-router-dom';
 const Navbar= ({setSidebar})=>{
     return(
         <nav className="flex-div">
             <div className="nav-left fex-dev">
                 <img src={menu_icon} onClick={() => setSidebar(prev => prev === false ? true : false)} className="menu-icon" alt="" />
-                <img src={logo} className="logo" alt="" />
+               <Link to='/'> <img src={logo} className="logo" alt="" /> </Link>
+            
             </div>
          <div className="nav-middle flex-div">
             <div className="search-box flex-div">
