@@ -29,12 +29,12 @@ const PlayVideo= ({videoId})=>{
             const comment_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&textFormat=html&videoId=${videoId}&key=${API_KEY}`;
              await fetch(comment_url).then(response => response.json()).then(data => setCommentData(data.items)); 
         }   
-useEffect(() => {
+            useEffect(() => {
         videoData();
         }, []);
 
        
- useEffect(() => {
+       useEffect(() => {
             channelotherData();
         }, [apiData]);
 useEffect(() => {
@@ -67,24 +67,32 @@ useEffect(() => {
            <div className="video-description">
            <p>{apiData ? apiData.snippet.description.slice(0,250) : "description"}</p><hr />
             <h4>{apiData ? value_Converter(apiData.statistics.commentCount ): "Like"}</h4>
-    {commentData && commentData.map((item, index) => {
-
-    return (
-        <div key={index} className="comment">
-            <img src={item.snippet.topLevelComment.snippet.authorProfileImageUrl} alt="" />
-            <div>
-                <h3>{item.snippet.topLevelComment.snippet.authorDisplayName} <span>{moment(item.snippet.topLevelComment.snippet.publishedAt).fromNow()}</span></h3>
-                <p>{item.snippet.topLevelComment.snippet.textDisplay}</p>
-                <div className="comment-action">
-                    <img src={like} alt="" /><span>{item.snippet.topLevelComment.snippet.likeCount || 0}</span>
-                    <img src={dislike} alt="" /><span>0</span>
-                    <p>{item.snippet.totalReplyCount}Replay</p>
+            <div key={index}className="comment">
+                <img src={item.snippet.topLevelComment.snippet.authorProfileImageUrl} alt="" />
+                <div >
+                    <h3>Nik <span>3 day ago</span></h3>
+                    <p>{commentData ? commentData.snippet.textDisplay   :"n"}</p>
+                     <div className="comment-action">
+                             <img src={like} alt="" /><span>23</span>
+                             <img src={dislike} alt="" /><span>2</span>
+                               </div>                
                 </div>
             </div>
-        </div>
-    )
-})}
-         
+         {commentData.map((item, index) => {
+            return(
+                <div key={index}className="comment">
+                <img src={item.snippet.topLevelComment.snippet.authorProfileImageUrl} alt="" />
+                <div >
+                    <h3>Nik <span>3 day ago</span></h3>
+                    <p>{commentData ? commentData.snippet.textDisplay   :"n"}</p>
+                     <div className="comment-action">
+                             <img src={like} alt="" /><span>23</span>
+                             <img src={dislike} alt="" /><span>2</span>
+                               </div>                
+                </div>
+            </div>
+            )
+         })}
            </div>
         </div>
     )

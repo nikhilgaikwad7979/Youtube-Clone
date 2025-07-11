@@ -15,8 +15,22 @@ import simon from '../../assets/simon.png'
 import megan from '../../assets/megan.png'
 import cameron from '../../assets/cameron.png'
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { API_KEY, value_Converter } from "../../data";
 
 const Sidebar = ({sidebar ,category, setCategory})=>{
+    //    const [channelData, setChannelData] = useState(null);
+       const [apiData, setapiData] = useState(null);
+       const channelotherData = async () => {
+               const channel_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+               await fetch(channel_url).then(response => response.json()).then(data => setChannelData(data.items[0]))
+               }  
+             
+               useEffect(() => {
+                           channelotherData();
+                       }, [apiData]);
+
+
     return (
         <div className={`sidebar ${sidebar?"":"small-sidebar"}` }>
          <div className="shortcut-links">
@@ -49,7 +63,7 @@ const Sidebar = ({sidebar ,category, setCategory})=>{
          <div className="subcribed-list">
            <h3>Subcribed</h3>
            <div className="side-link">
-            <img src={jack} alt="" /><p>Nick</p>
+            <img src={jack} alt="" /><p>{apiData ? apiData.snippet.channelTitle : "title"}</p>
            </div>
            <div className="side-link">
             <img src={tom} alt="" /><p>Nick1</p>

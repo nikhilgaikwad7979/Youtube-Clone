@@ -11,20 +11,13 @@ import thumbnail8 from '../../assets/thumbnail8.png';
 import { Link } from 'react-router-dom';
 import { API_KEY } from '../../data';
 import { useState } from 'react';
+import { value_Converter } from '../../data';
 import moment from 'moment';
-const value_Converter = (value) => {
-    if (value >= 1000000) {
-        return Math.floor(value / 1000000)+ "M";
-    } else if (value >= 1000) {
-        return Math.floor(value / 1000) + "K";
-    } else {
-        return value;
-    }
-}
+
 const Feed= ({category})=>{
   const [data, setData] = useState([]);
   const FeatchData= async ()=>{
-    const video_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
+    const video_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&videoCategoryId=${category}&key=${API_KEY}`;
     await fetch(video_url).then(Response=> Response.json()).then(data=>{setData(data.items)});    
   }
   useEffect(()=>{
